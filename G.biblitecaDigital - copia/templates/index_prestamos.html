@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>📋 Gestión de Préstamos</h1>
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h2>Historial de Préstamos</h2>
+    <a href="/create_prestamo" class="btn btn-success">📖 Nuevo Préstamo</a>
+</div>
+
+<table class="table table-striped">
+    <thead class="table-dark">
+        <tr>
+            <th>ID</th>
+            <th>Libro</th>
+            <th>Usuario</th>
+            <th>Fecha Préstamo</th>
+            <th>Fecha Devolución</th>
+            <th>Estado</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for prestamo in prestamos %}
+        <tr>
+            <td>{{ prestamo.id }}</td>
+            <td><strong>{{ prestamo.titulo }}</strong></td>
+            <td>{{ prestamo.usuario_nombre }}</td>
+            <td>{{ prestamo.fecha_prestamo }}</td>
+            <td>
+                {% if prestamo.fecha_devolucion %}
+                {{ prestamo.fecha_devolucion }}
+                {% else %}
+                <span class="badge bg-warning">Pendiente</span>
+                {% endif %}
+            </td>
+            <td>
+                {% if prestamo.estado == 'RETRASADO' %}
+                <span class="badge bg-danger">⚠️ RETRASADO</span>
+                {% else %}
+                <span class="badge bg-success">En Tiempo</span>
+                {% endif %}
+            </td>
+            <td>
+                {% if not prestamo.fecha_devolucion %}
+                <a href="/devolver_libro/{{ prestamo.id }}" class="btn btn-success btn-sm"
+                    onclick="return confirm('¿Marcar como devuelto?')">📚 Devolver</a>
+                {% else %}
+                <span class="text-muted">Devuelto</span>
+                {% endif %}
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

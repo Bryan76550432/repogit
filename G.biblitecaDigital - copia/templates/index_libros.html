@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>📚 Gestión de Libros</h1>
+
+<!-- Filtros -->
+<div class="card mb-4">
+    <div class="card-body">
+        <h5 class="card-title">Filtrar Libros</h5>
+        <div class="row">
+            <div class="col-md-4">
+                <form method="get">
+                    <div class="input-group">
+                        <input type="text" class="form-control" name="autor" placeholder="Buscar por autor..."
+                            value="{{ request.args.get('autor', '') }}">
+                        <button class="btn btn-outline-primary" type="submit">Buscar</button>
+                    </div>
+                </form>
+            </div>
+            <div class="col-md-8">
+                <a href="/" class="btn btn-outline-secondary">Todos</a>
+                <a href="/?disponible=si" class="btn btn-outline-success">Disponibles</a>
+                <a href="/?disponible=no" class="btn btn-outline-warning">Prestados</a>
+                <a href="/create_libro" class="btn btn-success float-end">➕ Nuevo Libro</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Tabla de libros -->
+<table class="table table-striped">
+    <thead class="table-dark">
+        <tr>
+            <th>ID</th>
+            <th>Título</th>
+            <th>Autor</th>
+            <th>Año</th>
+            <th>Disponible</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for libro in libros %}
+        <tr>
+            <td>{{ libro.id }}</td>
+            <td><strong>{{ libro.titulo }}</strong></td>
+            <td>{{ libro.autor }}</td>
+            <td>{{ libro.año }}</td>
+            <td>
+                {% if libro.disponible %}
+                <span class="badge bg-success">Sí</span>
+                {% else %}
+                <span class="badge bg-danger">No</span>
+                {% endif %}
+            </td>
+            <td>
+                <a href="/edit_libro/{{ libro.id }}" class="btn btn-warning btn-sm">✏️ Editar</a>
+                <a href="/delete_libro/{{ libro.id }}" class="btn btn-danger btn-sm"
+                    onclick="return confirm('¿Eliminar este libro?')">🗑️ Eliminar</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}
