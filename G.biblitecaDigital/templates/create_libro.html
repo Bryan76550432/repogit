@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>➕ Agregar Nuevo Libro</h2>
+
+<form action='/save_libro' method="post">
+    <div class="mb-3">
+        <label for="titulo" class="form-label">Título del Libro</label>
+        <input type="text" class="form-control" name="titulo" placeholder="Ingresa el título" required>
+    </div>
+    <div class="mb-3">
+        <label for="autor" class="form-label">Autor</label>
+        <input type="text" class="form-control" name="autor" placeholder="Ingresa el autor" required>
+    </div>
+    <div class="mb-3">
+        <label for="año" class="form-label">Año de Publicación</label>
+        <input type="number" class="form-control" name="año" min="1900" max="2025" required>
+    </div>
+    <button type="submit" class="btn btn-primary">💾 Guardar Libro</button>
+    <a href="/" class="btn btn-secondary">Cancelar</a>
+</form>
+{% endblock %}

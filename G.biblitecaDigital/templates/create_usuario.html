@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>👥 Agregar Nuevo Usuario</h2>
+
+<form action='/save_usuario' method="post">
+    <div class="mb-3">
+        <label for="nombre" class="form-label">Nombre Completo</label>
+        <input type="text" class="form-control" name="nombre" placeholder="Ingresa el nombre" required>
+    </div>
+    <div class="mb-3">
+        <label for="correo" class="form-label">Correo Electrónico</label>
+        <input type="email" class="form-control" name="correo" placeholder="Ingresa el correo" required>
+    </div>
+    <button type="submit" class="btn btn-primary">💾 Guardar Usuario</button>
+    <a href="/usuarios" class="btn btn-secondary">Cancelar</a>
+</form>
+{% endblock %}
