@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>📖 Registrar Nuevo Préstamo</h2>
+
+<form action='/save_prestamo' method="post">
+    <div class="mb-3">
+        <label for="id_libro" class="form-label">Seleccionar Libro</label>
+        <select class="form-control" name="id_libro" required>
+            <option value="">-- Selecciona un libro --</option>
+            {% for libro in libros %}
+            <option value="{{ libro.id }}">{{ libro.titulo }} - {{ libro.autor }}</option>
+            {% endfor %}
+        </select>
+        <small class="text-muted">Solo se muestran libros disponibles</small>
+    </div>
+    <div class="mb-3">
+        <label for="id_usuario" class="form-label">Seleccionar Usuario</label>
+        <select class="form-control" name="id_usuario" required>
+            <option value="">-- Selecciona un usuario --</option>
+            {% for usuario in usuarios %}
+            <option value="{{ usuario.id }}">{{ usuario.nombre }} - {{ usuario.correo }}</option>
+            {% endfor %}
+        </select>
+    </div>
+    <button type="submit" class="btn btn-primary">📝 Registrar Préstamo</button>
+    <a href="/prestamos" class="btn btn-secondary">Cancelar</a>
+</form>
+{% endblock %}
